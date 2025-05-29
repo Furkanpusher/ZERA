@@ -6,7 +6,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            background: linear-gradient(135deg, #f0fdf4 0%, #f1ecfd 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -376,3 +376,36 @@
         .show-register .page-register {
             display: block;
         }
+
+        
+.success-message {
+    background: #e6ffed;
+    color: #218838;
+    border: 1px solid #b2f5c2;
+    padding: 16px 24px;
+    border-radius: 24px;
+    box-shadow: 0 2px 12px rgba(34,197,94,0.08);
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 1.1em;
+    position: relative;
+    animation: fadeIn 0.5s;
+    transition: opacity 0.5s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+
+.error-message {
+    background: #ffeaea;
+    color: #d93025;
+    border: 1px solid #f5bcbc;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-weight: 500;
+    font-size: 1em;
+    text-align: left;
+}

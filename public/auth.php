@@ -1,3 +1,37 @@
+<?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+date_default_timezone_set('Europe/Istanbul'); // veya sunucuna uygun bir timezone
+error_reporting(E_ALL);
+require_once __DIR__ . '/config/db.php';
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["email"])) {
+    // form gönderildi ve email alanı doluysa devam et
+    $login_email= trim($_POST["email"]);
+    $login_password = $_POST["password"];
+    $sql = "SELECT password_hash FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $login_email);   
+    $stmt->execute();
+    $stmt->bind_result($password_hash);
+    $stmt->fetch();
+    $stmt->close();
+    
+    if ($password_hash && password_verify($login_password, $password_hash)) {
+        // Eğer öyle bir şifre varsa ve şifre doğrulaması başarılıysa
+        // Giriş başarılı, kullanıcıyı yönlendircem
+        session_start();
+        $_SESSION['email'] = $login_email;  // oturumda email saklanıyor
+        header("Location: index.php");  // giriş başarılıysa anasayfaya yönlendir
+        exit();
+    } else {
+        // Giriş başarısız, hata mesajı göster
+        $error_message = "Invalid email or password.";
+    }
+}
+    
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +45,7 @@
 </head>
 
 <body id="auth-body">
-    <a href="/" class="back-home">Home</a>
+    <a href="index.php" class="back-home">Home</a>
     
     <div class="auth-container">
         <!-- Login Page -->
@@ -26,8 +60,13 @@
                     <h2>Welcome Back!</h2>
                     <p>Sign in to your account and continue managing your store</p>
                 </div>
+                <?php if (!empty($error_message)): ?>
+                    <div class="error-message">
+                        <?= htmlspecialchars($error_message) ?>
+                    </div>
+                <?php endif; ?>
 
-                <form class="auth-form" id="loginForm">
+                <form class="auth-form" id="loginForm" method = "POST" action = "auth.php">
                     <div class="form-group">
                         <label for="loginEmail">Email Address</label>
                         <input type="email" id="loginEmail" name="email" placeholder="example@email.com" required>
@@ -39,7 +78,7 @@
                     </div>
                     
                     <div class="forgot-password">
-                        <a href="#forgot">Forgot Password?</a>
+                        <a href="forgot.php">Forgot Password?</a>
                     </div>
 
                     <button type="submit" class="cta-button">Sign In</button>
@@ -54,70 +93,7 @@
                 </form>
 
                 <div class="auth-switch">
-                    Don’t have an account? <a href="#" onclick="togglePage()">Start a Free Trial</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Register Page -->
-        <div class="page-register">
-            <div class="auth-card">
-                <div class="logo">
-                    <h1>Zera</h1>
-                    <p>Supplement Store Builder</p>
-                </div>
-                
-                <div class="auth-header">
-                    <h2>Free Trial<span class="trial-badge">14 Days</span></h2>
-                    <p>Launch your supplement store in minutes</p>
-                </div>
-
-                <div class="features-preview">
-                    <h4>What’s Included:</h4>
-                    <ul class="features-list">
-                        <li>5+ Premium Themes</li>
-                        <li>20+ Custom Sections</li>
-                        <li>Mobile Optimized</li>
-                        <li>FDA Compliant</li>
-                        <li>24/7 Support</li>
-                        <li>Easy Setup</li>
-                    </ul>
-                </div>
-
-                <form class="auth-form" id="registerForm">
-                    <div class="form-group">
-                        <label for="registerName">Full Name</label>
-                        <input type="text" id="registerName" name="name" placeholder="Your Full Name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="registerEmail">Email Address</label>
-                        <input type="email" id="registerEmail" name="email" placeholder="example@email.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="registerPassword">Password</label>
-                        <input type="password" id="registerPassword" name="password" placeholder="At least 6 characters" required minlength="6">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="storeUrl">Shopify Store URL (Optional)</label>
-                        <input type="url" id="storeUrl" name="storeUrl" placeholder="store-name.myshopify.com">
-                    </div>
-
-                    <button type="submit" class="cta-button">Start 14-Day Free Trial</button>
-                    
-                    <div class="auth-divider">
-                        <span>or</span>
-                    </div>
-                    
-                    <button type="button" class="google-btn">
-                        Continue with Google
-                    </button>
-                </form>
-
-                <div class="auth-switch">
-                    Already have an account? <a href="#" onclick="togglePage()">Sign In</a>
+                    Don't have an account? <a href="register.php" onclick="togglePage()">Sign Up</a>
                 </div>
             </div>
         </div>

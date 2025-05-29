@@ -1,10 +1,7 @@
 <?php
-// index.php
-// PHP logic can be added here (e.g., session control)
-// session_start();
-// if (!isset($_SESSION['user'])) {
-//     // No redirect if commented out
-// }
+require_once __DIR__ . '/config/db.php';
+date_default_timezone_set('Europe/Istanbul'); // veya sunucuna uygun bir timezone
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,11 +20,19 @@
     <header class="header">
         <nav class="nav container">
             <div class="logo">Zera</div>
-            <ul class="nav-links">
+             <ul class="nav-links">
                 <li><a href="#themes">Themes</a></li>
                 <li><a href="#sections">Sections</a></li>
                 <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#docs">Docs</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Niches</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="niches/supplement.php">Supplement</a></li>
+                        <li><a href="niches/clothes.php">Clothes</a></li>
+                        <li><a href="niches/cosmetic.php">Cosmetic</a></li>
+                        <li><a href="niches/jewelry.php">Jewelry</a></li>
+                    </ul>
+                </li>
             </ul>
             <div class="nav-actions">
                 <a href="auth.php" class="login-icon"><i class="fas fa-user"></i></a>
