@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 date_default_timezone_set('Europe/Istanbul'); // veya sunucuna uygun bir timezone
 error_reporting(E_ALL);
-require_once __DIR__ . '/config/db.php';
+//require_once __DIR__ . '/config/db.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["email"])) {
     // form gönderildi ve email alanı doluysa devam et
     $login_email= trim($_POST["email"]);
