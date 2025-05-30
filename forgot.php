@@ -5,7 +5,7 @@ date_default_timezone_set('Europe/Istanbul');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require_once __DIR__ . '/config/db.php';
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $success_message = '';
 $error_message = '';
