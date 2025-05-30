@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["name"])) {
 
             <?php if ($register_success): ?>
                 <div class="success-message" id = "successMsg">
-                    🎉 Registration successful! You can now <a href="index.php">sign in</a>.
+                    🎉 Registration successful! You can now <a href="auth.php">sign in</a>.
                 </div>
             <?php elseif ($error_message): ?>
                 <div class="error-message">

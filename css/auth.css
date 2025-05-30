@@ -12,7 +12,8 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;   /* Sadece yatay kaydırmayı engelle */
+            overflow-y: auto;     /* Dikeyde kaydırmada bi problem yok */
         }
 
         body::before {
