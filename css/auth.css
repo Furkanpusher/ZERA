@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: linear-gradient(180deg, #18152A 0%, #0E024C 100%);
@@ -15,6 +16,19 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
 }
+=======
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #f1ecfd 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;   /* Sadece yatay kaydırmayı engelle */
+            overflow-y: auto;     /* Dikeyde kaydırmada bi problem yok */
+        }
+>>>>>>> b49b9237ca4ea4f42d895d56cf980450d141f01b
 
 .auth-container {
     position: relative;
