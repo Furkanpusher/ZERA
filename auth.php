@@ -31,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["email"])) {
     
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,62 +43,58 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["email"])) {
     <link rel="stylesheet" href="css/auth.css">
 </head>
 
-<body id="auth-body">
+<body>
     <a href="index.php" class="back-home">Home</a>
     
     <div class="auth-container">
-        <!-- Login Page -->
-        <div class="page-login">
-            <div class="auth-card">
-                <div class="logo">
-                    <h1>Zera</h1>
-                    <p>Supplement Store Builder</p>
+        <div class="auth-card">
+            <div class="logo">
+                <img src="images/logo.png" alt="Zera Logo">
+                <p>Supplement Store Builder</p>
+            </div>
+            
+            <div class="auth-header">
+                <h2>Welcome Back!</h2>
+                <p>Sign in to your account and continue managing your store</p>
+            </div>
+            
+            <?php if (!empty($error_message)): ?>
+                <div class="error-message">
+                    <?= htmlspecialchars($error_message) ?>
+                </div>
+            <?php endif; ?>
+
+            <form class="auth-form" id="loginForm" method="POST" action="auth.php">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="example@email.com" required>
                 </div>
                 
-                <div class="auth-header">
-                    <h2>Welcome Back!</h2>
-                    <p>Sign in to your account and continue managing your store</p>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="••••••••" required>
                 </div>
-                <?php if (!empty($error_message)): ?>
-                    <div class="error-message">
-                        <?= htmlspecialchars($error_message) ?>
-                    </div>
-                <?php endif; ?>
-
-                <form class="auth-form" id="loginForm" method = "POST" action = "auth.php">
-                    <div class="form-group">
-                        <label for="loginEmail">Email Address</label>
-                        <input type="email" id="loginEmail" name="email" placeholder="example@email.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" name="password" placeholder="••••••••" required>
-                    </div>
-                    
-                    <div class="forgot-password">
-                        <a href="forgot.php">Forgot Password?</a>
-                    </div>
-
-                    <button type="submit" class="cta-button">Sign In</button>
-                    
-                    <div class="auth-divider">
-                        <span>or</span>
-                    </div>
-                    
-                    <button type="button" class="google-btn">
-                        Continue with Google
-                    </button>
-                </form>
-
-                <div class="auth-switch">
-                    Don't have an account? <a href="register.php" onclick="togglePage()">Sign Up</a>
+                
+                <div class="forgot-password">
+                    <a href="forgot.php">Forgot Password?</a>
                 </div>
+
+                <button type="submit" class="cta-button">Sign In</button>
+                
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                
+                <button type="button" class="google-btn">
+                    Continue with Google
+                </button>
+            </form>
+
+            <div class="auth-switch">
+                Don't have an account? <a href="register.php">Sign Up</a>
             </div>
         </div>
     </div>
-
-
        
     <script src="js/auth.js"></script>
 </body>
